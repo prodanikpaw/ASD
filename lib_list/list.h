@@ -31,7 +31,7 @@ public:
     void pop(int pos);
     void pop(Node<T>* node);
 
-    bool is_empty();
+    bool is_empty()const;
     Node<T>* find(const T& val);
     int size() const;
 
@@ -298,7 +298,7 @@ void List<T>::pop(Node<T>* node) {
 }
 
 template <class T>
-bool List<T>::is_empty() {
+bool List<T>::is_empty()const {
     return _head == nullptr;
 }
 
