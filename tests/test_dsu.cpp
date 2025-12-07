@@ -186,3 +186,45 @@ TEST(DSUTest, CompareFindAndFindOp) {
     EXPECT_EQ(dsu.find(4), dsu.find_op(4));
     EXPECT_EQ(dsu.find(5), dsu.find_op(5));
 }
+
+//-----------------------------------------------------
+
+
+TEST(IslandCounterTest, EmptyGridReturnsZero) {
+    std::vector<std::vector<int>> grid;
+    IslandCounter counter(grid);
+    EXPECT_EQ(0, counter.calculateIslands());
+}
+
+TEST(IslandCounterTest, SingleIslandLShape) {
+    std::vector<std::vector<int>> grid = {
+        {1, 0, 0},
+        {1, 0, 0},
+        {1, 1, 1}
+    };
+    IslandCounter counter(grid);
+    EXPECT_EQ(1, counter.calculateIslands());
+}
+
+TEST(IslandCounterTest, TwoIslandsClassic) {
+    std::vector<std::vector<int>> grid = {
+        {1, 1, 0, 0, 0},
+        {1, 1, 0, 0, 1},
+        {0, 0, 0, 1, 1},
+        {0, 0, 0, 1, 1}
+    };
+    IslandCounter counter(grid);
+    EXPECT_EQ(2, counter.calculateIslands());
+}
+
+TEST(IslandCounterTest, ChessboardPattern) {
+    std::vector<std::vector<int>> grid = {
+        {1, 0, 1, 0, 1},
+        {0, 1, 0, 1, 0},
+        {1, 0, 1, 0, 1},
+        {0, 1, 0, 1, 0}
+    };
+    IslandCounter counter(grid);
+    // Каждая единица изолирована
+    EXPECT_EQ(10, counter.calculateIslands());
+}

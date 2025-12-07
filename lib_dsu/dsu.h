@@ -1,4 +1,5 @@
 ﻿#include<stdexcept>
+#include <vector>
 
 class DSU {
 	int* _parent;
@@ -69,4 +70,89 @@ int DSU::find_op(int x) {
 	}
 	return _parent[x];
 }
+
+class IslandCounter {
+    const std::vector<std::vector<int>>& _grid;
+    int _rows;
+    int _cols;
+
+public:
+    bool isInBounds(int row, int col) const {
+        return row >= 0 && row < _rows && col >= 0 && col < _cols;
+    }
+
+    int convertToFlatIndex(int row, int col) const {
+        return row * _cols + col;
+    }
+    IslandCounter(const std::vector<std::vector<int>>& grid)
+        : _grid(grid), _rows(grid.size())
+    {
+        if (grid.empty()) {
+            _cols = 0;
+        }
+        else {
+            _cols = grid[0].size();
+        }
+    }
+
+    int calculateIslands() {
+        if (_rows == 0 || _cols == 0) {
+            return 0;
+        }
+
+        DSU disjointSet(_rows * _cols);
+
+        // Проверяем только левого и верхнего соседа
+        const int neighborOffsets[2][2] = { {1, 0}, {0, 1} };  
+
+        // Фаза 1: Объединение компонент
+        for (int i = 0; i < _rows; ++i) {
+            for (int j = 0; j < _cols; ++j) {
+                if (_grid[i][j] == 1) {
+                    int currentFlatIdx = convertToFlatIndex(i, j);
+
+                    for (int k = 0; k < 2; ++k) {
+                        int neighborRow = i + neighborOffsets[k][0];
+                        int neighborCol = j + neighborOffsets[k][1];
+
+                        // Проверяем нижнюю и правую границы
+                        if (neighborRow < _rows && neighborCol < _cols &&
+                            _grid[neighborRow][neighborCol] == 1) {
+                            int neighborFlatIdx = convertToFlatIndex(neighborRow, neighborCol);
+                            disjointSet.unite(currentFlatIdx, neighborFlatIdx);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Фаза 2: Подсчет уникальных компонент
+        int totalIslands = 0;
+        std::vector<int> uniqueSetRoots(_rows * _cols, -1);
+
+        for (int i = 0; i < _rows; ++i) {
+            for (int j = 0; j < _cols; ++j) {
+                if (_grid[i][j] == 1) {
+                    int cellIndex = convertToFlatIndex(i, j);
+                    int rootRepresentative = disjointSet.find_op(cellIndex);  // Используем find_op
+
+                    bool rootAlreadyCounted = false;
+                    for (int idx = 0; idx < totalIslands; ++idx) {
+                        if (uniqueSetRoots[idx] == rootRepresentative) {
+                            rootAlreadyCounted = true;
+                            break;
+                        }
+                    }
+
+                    if (!rootAlreadyCounted) {
+                        uniqueSetRoots[totalIslands] = rootRepresentative;
+                        totalIslands++;
+                    }
+                }
+            }
+        }
+
+        return totalIslands;
+    }
+};
 
