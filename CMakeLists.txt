@@ -15,6 +15,7 @@ include(cmake/function.cmake)         # подхватываем функции,
 
 add_subdirectory(lib_easy_example) 
 add_subdirectory(lib_stack)
+add_subdirectory(lib_queue)
 
 
 
