@@ -21,6 +21,8 @@ add_subdirectory(lib_list)
 add_subdirectory(lib_lststack)
 add_subdirectory(lib_lstqueue) 
 add_subdirectory(lib_algorithms)
+add_subdirectory(lib_TVector)
+
  # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
