@@ -15,8 +15,19 @@ include(cmake/function.cmake)         # подхватываем функции,
 
 add_subdirectory(lib_easy_example) 
 add_subdirectory(lib_stack)
-add_subdirectory(lib_queue)   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
-add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
+add_subdirectory(lib_lststack)
+add_subdirectory(lib_queue) 
+add_subdirectory(lib_lstqueue) 
+add_subdirectory(lib_algorithms)
+add_subdirectory(lib_list)
+add_subdirectory(lib_dsu)  # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
+add_subdirectory(main)  
+add_subdirectory(lib_TVector)
+add_subdirectory(lib_Unsorted_Table_On_Vec)
+add_subdirectory(lib_ITable)
+add_subdirectory(lib_Skiplist)
+
+add_subdirectory(Laba2_Arithmetic)              # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
 
