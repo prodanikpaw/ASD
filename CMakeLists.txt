@@ -24,6 +24,7 @@ add_subdirectory(lib_dsu)  # подключаем дополнительный C
 add_subdirectory(main)  
 add_subdirectory(lib_TVector)
 add_subdirectory(lib_Unsorted_Table_On_Vec)
+add_subdirectory(lib_Sorted_Table_On_Vec)
 add_subdirectory(lib_ITable)
 add_subdirectory(lib_Skiplist)
 
