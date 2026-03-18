@@ -1,10 +1,22 @@
 #include <iostream>
-#include "List"
+#include "list"
 
 template<typename TKey, typename TValue>
 struct Node {
-	std::pair<TKey, TValue>;
-	Node** next;
+	std::pair<TKey, TValue> data;
+	Node<TKey, TValue>** next;
+	size_t level;
+
+	Node(const TKey& key, const TValue& value, size_t lvl) : data(key, value), level(lvl) {
+		next = new Node<TKey, TValue>* [level + 1];
+		for (size_t i = 0; i <= level; ++i) {
+			next[i] = nullptr;
+		}
+	}
+
+	~Node() {
+		delete[] next;
+	}
 };
 
 
