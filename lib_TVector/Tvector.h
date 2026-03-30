@@ -302,6 +302,7 @@ void TVector<T>::insert(int pos, T val)
 	_size++;
 }
 
+
 template<typename T>
 T TVector<T>::pop_front()
 {

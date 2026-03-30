@@ -82,6 +82,22 @@ public:
             return *this;
         }
 
+        // ƒобавленный оператор ->
+        T* operator->() {
+            if (current == nullptr) {
+                throw std::logic_error("Dereferencing null iterator");
+            }
+            return &(current->value);
+        }
+
+        // Const верси€ оператора ->
+        const T* operator->() const {
+            if (current == nullptr) {
+                throw std::logic_error("Dereferencing null iterator");
+            }
+            return &(current->value);
+        }
+
         Node<T>* get_current() const { return current; }
     };
 

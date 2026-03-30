@@ -8,7 +8,7 @@ class Sorted_Table_On_Vec : public ITable<TKey, TValue> {
 
     
     int find_position(const TKey& key) const;
-    int find_insert_position(const TKey& key) const;
+    int find_nearest_position(const TKey& key) const;
 
 public:
     Sorted_Table_On_Vec() = default;
@@ -29,6 +29,21 @@ public:
 //бинарный
 template<typename TKey, typename TValue>
 int Sorted_Table_On_Vec<TKey, TValue>::find_position(const TKey& key) const {
+    if (is_empty()) {
+        return -1;
+    }
+
+    int pos = find_nearest_position(key);
+
+    if (pos < _rows.getsize() && _rows[pos].first == key) {
+        return pos;
+    }
+
+    return -1;
+}
+
+template<typename TKey, typename TValue>
+int Sorted_Table_On_Vec<TKey, TValue>::find_nearest_position(const TKey& key) const {
     int left = 0;
     int right = _rows.getsize() - 1;
 
@@ -38,24 +53,6 @@ int Sorted_Table_On_Vec<TKey, TValue>::find_position(const TKey& key) const {
         if (_rows[mid].first == key) {
             return mid;
         }
-        else if (_rows[mid].first < key) {
-            left = mid + 1;
-        }
-        else {
-            right = mid - 1;
-        }
-    }
-    return -1;
-}
-
-// Поиск позиции для вставки нового элемента 
-template<typename TKey, typename TValue>
-int Sorted_Table_On_Vec<TKey, TValue>::find_insert_position(const TKey& key) const {
-    int left = 0;
-    int right = _rows.getsize() - 1;
-
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
 
         if (_rows[mid].first < key) {
             left = mid + 1;
@@ -64,18 +61,16 @@ int Sorted_Table_On_Vec<TKey, TValue>::find_insert_position(const TKey& key) con
             right = mid - 1;
         }
     }
-
     return left;
 }
-
 
 template<typename TKey, typename TValue>
 TValue Sorted_Table_On_Vec<TKey, TValue>::find(const TKey& key) const {
     int pos = find_position(key);
-    if (pos != -1) {
-        return _rows[pos].second;
+    if (pos == -1) {
+        throw std::out_of_range("Key not found");
     }
-    return TValue();
+    return _rows[pos].second;
 }
 
 template<typename TKey, typename TValue>
@@ -87,7 +82,7 @@ void Sorted_Table_On_Vec<TKey, TValue>::insert(const TKey& key, const TValue& va
         return;
     }
 
-    int insert_pos = find_insert_position(key);
+    int insert_pos = find_nearest_position(key);
 
     _rows.insert(insert_pos, std::make_pair(key, val));
 }

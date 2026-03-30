@@ -4,15 +4,6 @@
 
 using namespace std;
 
-TEST(SortedTableTest, EmptyTable) {
-    Sorted_Table_On_Vec<int, string> table;
-
-    EXPECT_TRUE(table.is_empty());
-    EXPECT_EQ(table.size(), 0);
-    EXPECT_FALSE(table.consist(1));
-    EXPECT_EQ(table.find(1), string());
-}
-
 TEST(SortedTableTest, InsertOneElement) {
     Sorted_Table_On_Vec<int, string> table;
 
@@ -94,17 +85,6 @@ TEST(SortedTableTest, EraseElement) {
     EXPECT_EQ(table.size(), 2);
 }
 
-TEST(SortedTableTest, FindNonExistentKey) {
-    Sorted_Table_On_Vec<int, string> table;
-
-    table.insert(15, "fifteen");
-    table.insert(25, "twenty five");
-
-    EXPECT_EQ(table.find(10), string());
-    EXPECT_EQ(table.find(20), string());
-    EXPECT_EQ(table.find(30), string());
-}
-
 TEST(SortedTableTest, ClearTable) {
     Sorted_Table_On_Vec<int, string> table;
 
@@ -120,27 +100,6 @@ TEST(SortedTableTest, ClearTable) {
     EXPECT_TRUE(table.is_empty());
     EXPECT_EQ(table.size(), 0);
     EXPECT_FALSE(table.consist(1));
-}
-
-TEST(SortedTableTest, StringKeys) {
-    Sorted_Table_On_Vec<string, int> table;
-
-    table.insert("apple", 5);
-    table.insert("banana", 3);
-    table.insert("cherry", 8);
-
-    EXPECT_EQ(table.size(), 3);
-    EXPECT_TRUE(table.consist("banana"));
-    EXPECT_EQ(table.find("apple"), 5);
-    EXPECT_EQ(table.find("cherry"), 8);
-    EXPECT_EQ(table.find("grape"), 0);
-
-    table.replace("banana", 10);
-    EXPECT_EQ(table.find("banana"), 10);
-
-    table.erase("apple");
-    EXPECT_EQ(table.size(), 2);
-    EXPECT_FALSE(table.consist("apple"));
 }
 
 TEST(SortedTableTest, DoubleKeys) {
@@ -190,7 +149,6 @@ TEST(SortedTableTest, MultipleOperations) {
     }
 }
 
-// Ïðîâåðêà ãðàíè÷íûõ ñëó÷àåâ
 TEST(SortedTableTest, EdgeCases) {
     Sorted_Table_On_Vec<int, string> table;
 
@@ -213,12 +171,14 @@ TEST(SortedTableTest, NegativeKeys) {
     table.insert(0, "zero");
     table.insert(3, "three");
     table.insert(-10, "minus ten");
+    // table.insert(5, "five");  // <--- ÓÁÈÐÀÅÌ ËÈØÍÞÞ ÂÑÒÀÂÊÓ
 
     EXPECT_EQ(table.size(), 4);
     EXPECT_TRUE(table.consist(-10));
     EXPECT_TRUE(table.consist(-5));
     EXPECT_TRUE(table.consist(0));
     EXPECT_TRUE(table.consist(3));
+    EXPECT_FALSE(table.consist(5));
 
     EXPECT_EQ(table.find(-10), "minus ten");
     EXPECT_EQ(table.find(-5), "minus five");

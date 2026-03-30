@@ -48,7 +48,7 @@ void Unsorted_Table_On_Vec<TKey, TValue>::insert(const TKey& key, const TValue& 
     int pos = find_position(key);
     if (pos != -1) {
         
-        _rows[pos].second = val;
+        throw std::invalid_argument("Key already exists in the table");
     }
     else {
         _rows.push_back(std::make_pair(key, val));
