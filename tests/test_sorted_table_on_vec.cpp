@@ -46,7 +46,7 @@ TEST(SortedTableTest, UpdateExistingKey) {
     EXPECT_EQ(table.find(3), "three");
     EXPECT_EQ(table.size(), 1);
 
-    table.insert(3, "THREE");
+    table.replace(3, "THREE");
 
     EXPECT_EQ(table.size(), 1);
     EXPECT_EQ(table.find(3), "THREE");
@@ -171,7 +171,7 @@ TEST(SortedTableTest, NegativeKeys) {
     table.insert(0, "zero");
     table.insert(3, "three");
     table.insert(-10, "minus ten");
-    // table.insert(5, "five");  // <--- ÓÁÈÐÀÅÌ ËÈØÍÞÞ ÂÑÒÀÂÊÓ
+    // table.insert(5, "five");
 
     EXPECT_EQ(table.size(), 4);
     EXPECT_TRUE(table.consist(-10));

@@ -1,4 +1,4 @@
-// Copyright 2024 Marina Usova
+﻿// Copyright 2024 Marina Usova
 
 #define EASY_EXAMPLE
 #ifdef EASY_EXAMPLE
@@ -7,6 +7,8 @@
 #include "../lib_Skiplist/Skiplist.h"
 #include "../lib_easy_example/easy_example.h"
 #include "../lib_TVector/Tvector.h"
+#include "../lib_Unsorted_Table_On_tree/Unsorted_Table_On_tree.h"
+#include "../lib_Tree/Tree.h"
 
 int main() {
   int a, b;
@@ -78,6 +80,47 @@ int main() {
   if (found) {
       std::cout << "New value: " << found->data.second << "\n";
   }
+
+
+  std::cout << "===============================================\n";
+  std::cout << "  НЕУПОРЯДОЧЕННАЯ ТАБЛИЦА НА ДЕРЕВЕ\n";
+  std::cout << "  ДЕМОНСТРАЦИЯ ВСЕХ 4 ОБХОДОВ\n";
+  std::cout << "===============================================\n\n";
+
+  // ==================== СОЗДАНИЕ ТАБЛИЦЫ ====================
+  UnorderedTreeTable<int, std::string> table;
+
+  // ==================== ВСТАВКА ЭЛЕМЕНТОВ ====================
+  std::cout << "1. ВСТАВКА ЭЛЕМЕНТОВ\n";
+  std::cout << "   Вставляем: 5->five, 1->one, 3->three, 7->seven, 2->two, 4->four\n";
+
+  try {
+      table.insert(5, "five");
+      table.insert(1, "one");
+      table.insert(3, "three");
+      table.insert(7, "seven");
+      table.insert(2, "two");
+      table.insert(4, "four");
+
+      std::cout << "   ✓ Все элементы вставлены успешно\n";
+      std::cout << "   Размер таблицы: " << table.size() << "\n\n";
+  }
+  catch (const std::exception& e) {
+      std::cout << "   ✗ Ошибка: " << e.what() << "\n\n";
+  }
+
+  // ==================== КРАСИВЫЙ ВЫВОД ДЕРЕВА ====================
+  std::cout << "2. СТРУКТУРА ДЕРЕВА\n";
+  table.printTree();
+
+  // ==================== ВСЕ 4 ОБХОДА ====================
+  std::cout << "3. ВСЕ 4 ВИДА ОБХОДА\n";
+  std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+
+  std::cout << "   [1] ПРЯМОЙ ОБХОД (Pre-order):     ";
+  table.printAllTraversals();
+  std::cout << "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+
 }
 
 #endif  // EASY_EXAMPLE
