@@ -1,3 +1,4 @@
+#pragma once
 #include <stdexcept>
 
 template <class T>
@@ -81,8 +82,6 @@ public:
             }
             return *this;
         }
-
-        // ƒобавленный оператор ->
         T* operator->() {
             if (current == nullptr) {
                 throw std::logic_error("Dereferencing null iterator");
@@ -90,7 +89,6 @@ public:
             return &(current->value);
         }
 
-        // Const верси€ оператора ->
         const T* operator->() const {
             if (current == nullptr) {
                 throw std::logic_error("Dereferencing null iterator");

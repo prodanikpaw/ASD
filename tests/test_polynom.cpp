@@ -36,12 +36,12 @@ TEST(MonomTest, ConstructorWithPowers) {
 TEST(MonomTest, ConstructorFromString) {
     Monom m1("2x^2y");
     EXPECT_DOUBLE_EQ(m1.getCoefficient(), 2.0);
-    EXPECT_EQ(m1.getPower(0), 2); // x
-    EXPECT_EQ(m1.getPower(1), 1); // y
+    EXPECT_EQ(m1.getPower(0), 2);
+    EXPECT_EQ(m1.getPower(1), 1);
 
     Monom m2("-3.5z^3");
     EXPECT_DOUBLE_EQ(m2.getCoefficient(), -3.5);
-    EXPECT_EQ(m2.getPower(2), 3); // z
+    EXPECT_EQ(m2.getPower(2), 3);
 
     Monom m3("x^2");
     EXPECT_DOUBLE_EQ(m3.getCoefficient(), 1.0);
@@ -138,19 +138,19 @@ TEST(PolynomTest, AddMonom) {
     powers1[0] = 2;
     powers1[1] = 0;
     powers1[2] = 0;
-    Monom m1(1.0, powers1); // x^2
+    Monom m1(1.0, powers1);
 
     TVector<int> powers2(3);
     powers2[0] = 1;
     powers2[1] = 0;
     powers2[2] = 0;
-    Monom m2(2.0, powers2); // 2x
+    Monom m2(2.0, powers2);
 
     TVector<int> powers3(3);
     powers3[0] = 0;
     powers3[1] = 0;
     powers3[2] = 0;
-    Monom m3(1.0, powers3); // 1
+    Monom m3(1.0, powers3);
 
     p.addMonom(m1);
     EXPECT_EQ(p.getMonomCount(), 1);
@@ -164,10 +164,9 @@ TEST(PolynomTest, AddMonom) {
     EXPECT_EQ(p.toString(), "x^2+2x+1");
 }
 
-// Тест для нормализации (объединения подобных мономов)
 TEST(PolynomTest, NormalizeSimilarMonomials) {
     Polynom p("x^2 + 2x^2 + 3x^2");
-    EXPECT_EQ(p.getMonomCount(), 1); // Должны объединиться в 6x^2
+    EXPECT_EQ(p.getMonomCount(), 1);
 
     string expected = "6x^2";
     EXPECT_EQ(p.toString(), expected);
@@ -291,7 +290,6 @@ TEST(PolynomTest, PlusEqualsOperator) {
 
     p1 += p2;
 
-    // Имя должно остаться "P1"
     EXPECT_EQ(p1.getName(), "P1");
     EXPECT_EQ(p1.toString(), "2x^2");
 }
@@ -334,14 +332,13 @@ TEST(PolynomTest, EqualityOperator) {
     EXPECT_TRUE(p1 != p3);
 }
 
-// Тесты для вычисления значения в точке
 TEST(PolynomTest, EvaluateWithTVector) {
     Polynom p("P1", "x^2 + 2x + 1");
 
     TVector<double> point(3);
-    point[0] = 2.0; // x = 2
-    point[1] = 0.0; // y = 0
-    point[2] = 0.0; // z = 0
+    point[0] = 2.0;
+    point[1] = 0.0;
+    point[2] = 0.0;
 
     double result = p.evaluate(point);
     EXPECT_DOUBLE_EQ(result, 9.0);
@@ -362,7 +359,6 @@ TEST(PolynomTest, MonomialOrdering) {
 
     auto it = p.begin();
 
-    // Проверяем порядок: сначала xy, потом y^2z^3, потом 2y^2, потом 6
     EXPECT_EQ(it->getPower(0), 1);
     EXPECT_EQ(it->getPower(1), 1);
     EXPECT_EQ(it->getPower(2), 0);
@@ -416,7 +412,6 @@ TEST(PolynomTest, ComplexExpression) {
     EXPECT_FALSE(prod.isZero());
 }
 
-// Тест для итераторов
 TEST(PolynomTest, IteratorTest) {
     Polynom p("P1", "x^2 + 2x + 1");
 

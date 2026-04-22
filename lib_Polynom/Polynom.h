@@ -1,3 +1,4 @@
+#pragma once
 #include "list.h"
 #include "Monom.h"
 
@@ -155,7 +156,7 @@ void Polynom::setName(const string& newName) {
 void Polynom::_insertSorted(const Monom& monom) {
     auto it = _polynom.begin();
     int pos = 0;
-    while (it != _polynom.end() && it->isLessThan(monom)) {
+    while (it != _polynom.end() && it->isMoreThan(monom)) {
         ++it;
         ++pos;
     }
@@ -174,7 +175,7 @@ void Polynom::_insertSorted(const Monom& monom) {
                 _polynom.pop(currentPos);
                 auto insertIt = _polynom.begin();
                 int insertPos = 0;
-                while (insertIt != _polynom.end() && insertIt->isLessThan(sum)) {
+                while (insertIt != _polynom.end() && insertIt->isMoreThan(sum)) {
                     ++insertIt;
                     ++insertPos;
                 }
@@ -206,7 +207,7 @@ void Polynom::_normalize() {
 
     for (int i = 0; i < temp.getsize() - 1; ++i) {
         for (int j = 0; j < temp.getsize() - i - 1; ++j) {
-            if (!temp[j].isLessThan(temp[j + 1])) {
+            if (!temp[j].isMoreThan(temp[j + 1])) {
                 Monom tmp = temp[j];
                 temp[j] = temp[j + 1];
                 temp[j + 1] = tmp;
@@ -225,11 +226,9 @@ void Polynom::addMonom(const Monom& monom) {
 }
 
 Polynom Polynom::operator+(const Polynom& other) const {
-    Polynom result("Result", ""); 
+    Polynom result(*this);
+    result.setName("Result");
 
-    for (auto it = _polynom.begin(); it != _polynom.end(); ++it) {
-        result.addMonom(*it);
-    }
     for (auto it = other._polynom.begin(); it != other._polynom.end(); ++it) {
         result.addMonom(*it);
     }

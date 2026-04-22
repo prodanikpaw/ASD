@@ -1,3 +1,4 @@
+#pragma once
 #include "ITable.h"
 #include "TVector.h"
 #include <iostream>
@@ -78,8 +79,7 @@ void Sorted_Table_On_Vec<TKey, TValue>::insert(const TKey& key, const TValue& va
     int pos = find_position(key);
 
     if (pos != -1) {
-        _rows[pos].second = val;
-        return;
+        throw std::invalid_argument("Key already exists in the table");
     }
 
     int insert_pos = find_nearest_position(key);

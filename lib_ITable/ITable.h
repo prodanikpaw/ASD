@@ -1,3 +1,5 @@
+#pragma once 
+
 #include<iostream>
 template<typename TKey, typename TValue>
 class ITable {

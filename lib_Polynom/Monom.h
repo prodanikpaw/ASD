@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -64,10 +65,10 @@ public:
     Monom& operator/=(double scalar);
 
     double evaluate(const TVector<double>& point) const;
-    double evaluate(double x, double y, double z) const; 
+    double evaluate(double x, double y = 0, double z = 0) const; 
 
 
-    bool isLessThan(const Monom& other) const;
+    bool isMoreThan(const Monom& other) const;
 
     friend ostream& operator<<(ostream& os, const Monom& monom);
     friend istream& operator>>(istream& is, Monom& monom);
@@ -164,7 +165,7 @@ Monom::Monom(const string& str) {
 
         for (int i = 0; i < VARIABLES_COUNT; ++i) {
             if (VARIABLE_NAMES[i] == var) {
-                powers[i] = power;
+                powers[i] += power;
                 break;
             }
         }
@@ -372,7 +373,6 @@ Monom& Monom::operator/=(double scalar) {
     return *this;
 }
 
-// Вычисление значения в точке
 double Monom::evaluate(const TVector<double>& point) const {
     if (point.getsize() != VARIABLES_COUNT) {
         throw logic_error("Point size must match VARIABLES_COUNT");
@@ -399,7 +399,7 @@ double Monom::evaluate(double x, double y, double z) const {
     return evaluate(point);
 }
 
-bool Monom::isLessThan(const Monom& other) const {
+bool Monom::isMoreThan(const Monom& other) const {
     for (int i = 0; i < VARIABLES_COUNT; ++i) {
         if (powers[i] != other.powers[i]) {
             return powers[i] > other.powers[i];

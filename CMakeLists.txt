@@ -23,12 +23,18 @@ add_subdirectory(lib_list)
 add_subdirectory(lib_dsu)  # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
 add_subdirectory(main)  
 add_subdirectory(lib_TVector)
+add_subdirectory(lib_Tree)
+add_subdirectory(lib_BSTree)
+add_subdirectory(lib_Unsorted_Table_On_Tree)
+add_subdirectory(lib_Sorted_Table_On_BSTree)
 add_subdirectory(lib_Unsorted_Table_On_Vec)
 add_subdirectory(lib_Sorted_Table_On_Vec)
 add_subdirectory(lib_Table_On_List)
 add_subdirectory(lib_ITable)
 add_subdirectory(lib_Skiplist)
 add_subdirectory(lib_Polynom)
+add_subdirectory(lib_Hash_Tables)
+
 
 add_subdirectory(Laba2_Arithmetic)              # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
