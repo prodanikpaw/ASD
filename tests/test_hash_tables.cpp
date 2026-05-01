@@ -272,7 +272,6 @@ TEST(HashTableOATest, DeletedCellsReused) {
 
     ht.erase("b");
 
-    // Вставляем новый элемент - должна использоваться deleted ячейка
     ht.insert("d", 4);
 
     EXPECT_EQ(ht.size(), 3);

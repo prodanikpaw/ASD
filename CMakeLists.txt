@@ -34,6 +34,8 @@ add_subdirectory(lib_ITable)
 add_subdirectory(lib_Skiplist)
 add_subdirectory(lib_Polynom)
 add_subdirectory(lib_Hash_Tables)
+add_subdirectory(lib_Heap)
+add_subdirectory(lib_Priority_Queue)
 
 
 add_subdirectory(Laba2_Arithmetic)              # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
